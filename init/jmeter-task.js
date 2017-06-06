@@ -26,6 +26,7 @@ reg.register('service.task.jmeter', {
 
         var remotePath = path.join(params.remotePath || '/tmp', executionCode);
         var resultsPath  = path.join(remotePath, 'results');
+        var logPath  = path.join(remotePath, 'jmeter.log');
 
         var buildJmeterCommand = function(params) {
             var command = 'jmeter -n';
@@ -39,6 +40,7 @@ reg.register('service.task.jmeter', {
 
             command += ' -t "' + remoteScript + '"';
             command += ' -l "' + csvPath + '"';
+            command += ' -j "' + logPath + '"';
             command += ' -e -o "' + resultsPath + '"';
 
             command += ' ' + commandParameters;
@@ -125,6 +127,26 @@ reg.register('service.task.jmeter', {
         });
 
         log.info('<a target="_blank" href="/plugin/cla-jmeter-plugin/jmeter_results/' + executionCode + '/index.html">Click here to see the JMeter results</a>' );
+        log.info("Script " + scriptName + " executed", scriptOutput.output);
+
+        var logOutput = regRemote.launch('service.scripting.remote', {
+            name: 'Run JMeter Script',
+            config: {
+                errors: errorsType,
+                server: params.server,
+                path: 'cat "' + logPath + '"',
+                output_error: params.output_error,
+                output_warn: params.output_warn,
+                output_capture: params.output_capture,
+                output_ok: params.output_ok,
+                meta: params.meta,
+                rc_ok: params.rcOk,
+                rc_error: params.rcError,
+                rc_warn: params.rcWarn
+            }
+        });
+
+        log.debug("Script " + scriptName + " executed.  Complete log", logOutput.output);
 
         return scriptOutput;
     }
