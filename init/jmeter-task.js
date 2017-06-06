@@ -12,19 +12,24 @@ reg.register('service.task.jmeter', {
         var path = require('cla/path');
         var log = require('cla/log');
         var digest = require("cla/digest");
+        var proc = require("cla/process");
 
+        var CLARIVE_BASE = proc.env('CLARIVE_BASE');
         var errorsType = params.errors || 'fail';
         var command = '';
         var output = '';
 
         var scriptPath = params.scriptPath || '/tmp/script.jmx';
-        var remotePath = path.join(params.remotePath,digest.md5()) || '/tmp';
+        var scriptName = path.basename(scriptPath);
+
+        var executionCode = digest.md5(ctx.stash('job_name'));
+
+        var remotePath = path.join(params.remotePath || '/tmp', executionCode);
         var resultsPath  = path.join(remotePath, 'results');
 
         var buildJmeterCommand = function(params) {
             var command = 'jmeter -n';
 
-            var scriptName = path.basename(scriptPath);
 
             var remoteScript = path.join(remotePath, scriptName);
 
@@ -41,6 +46,8 @@ reg.register('service.task.jmeter', {
             return command;
         }
 
+        log.info("Starting JMeter execution.  Script " + scriptName);
+
         command = buildJmeterCommand(params);
 
         regRemote.launch('service.scripting.remote', {
@@ -49,6 +56,16 @@ reg.register('service.task.jmeter', {
                 errors: errorsType,
                 server: params.server,
                 path: 'mkdir -p ' + resultsPath
+            }
+        });
+
+       
+        regRemote.launch('service.scripting.remote', {
+            name: 'Create Remote Path',
+            config: {
+                errors: errorsType,
+                server: params.server,
+                path: 'rm -rf ' + resultsPath + '/*'
             }
         });
 
@@ -75,7 +92,11 @@ reg.register('service.task.jmeter', {
             }
         });
 
-        output = regRemote.launch('service.scripting.remote', {
+        log.info("Script " + scriptName + " sent to JMeter server");
+
+        log.info("Executing Script " + scriptName + ".  Please, be patient");
+
+        var scriptOutput = regRemote.launch('service.scripting.remote', {
             name: 'Run JMeter Script',
             config: {
                 errors: errorsType,
@@ -92,6 +113,19 @@ reg.register('service.task.jmeter', {
             }
         });
 
-        return output;
+        log.info("Script " + scriptName + " executed", scriptOutput.output);
+
+        regRemote.launch('service.fileman.retrieve', {
+            name: 'Retrieve JMeter results',
+            config: {
+                server: params.server,
+                remote_path: resultsPath,
+                local_path: path.join(CLARIVE_BASE,"plugins","cla-jmeter-plugin","public","jmeter_results",executionCode)
+            },
+        });
+
+        log.info('<a target="_blank" href="/plugin/cla-jmeter-plugin/jmeter_results/' + executionCode + '/index.html">Click here to see the JMeter results</a>' );
+
+        return scriptOutput;
     }
 });
