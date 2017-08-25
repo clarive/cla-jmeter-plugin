@@ -36,14 +36,14 @@ reg.register('service.task.jmeter', {
 
             var csvPath  = path.join(remotePath, (params.csvPath || 'script.csv'));
 
-            var commandParameters = params.commandParameters || '';
+            var commandParameters = params.commandParameters;
 
             command += ' -t "' + remoteScript + '"';
             command += ' -l "' + csvPath + '"';
             command += ' -j "' + logPath + '"';
             command += ' -e -o "' + resultsPath + '"';
 
-            command += ' ' + commandParameters;
+            command += ' ' + commandParameters.join(" ");
 
             return command;
         }

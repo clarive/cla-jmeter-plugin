@@ -32,12 +32,12 @@
         value: params.data.remoteUser
     });
 
-    var commandParameters = new Cla.ui.textArea({
+    var commandParameters = new Cla.ui.arrayGrid({
         name: 'commandParameters',
         fieldLabel: _('Command Parameters'),
-        value: params.data.commandParameters || '',
-        anchor: '100%',
-        height: 50
+        value: params.data.commandParameters,
+        description: _('Custom commands or arguments'),
+        default_value: '.'
     });
 
     var errors = new Baseliner.ComboSingle({
