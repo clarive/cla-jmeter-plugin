@@ -1,7 +1,7 @@
 var reg = require('cla/reg');
 
 reg.register('service.task.jmeter', {
-    name: 'Run JMeter Script',
+    name: _('Run JMeter Script'),
     icon: 'plugin/cla-jmeter-plugin/icon/logo-jmeter.svg',
     form: '/plugin/cla-jmeter-plugin/form/jmeter-task-form.js',
 
@@ -48,7 +48,7 @@ reg.register('service.task.jmeter', {
             return command;
         }
 
-        log.info("Starting JMeter execution.  Script " + scriptName);
+        log.info(_("Starting JMeter execution.") + "  Script " + scriptName);
 
         command = buildJmeterCommand(params);
 
@@ -94,9 +94,9 @@ reg.register('service.task.jmeter', {
             }
         });
 
-        log.info("Script " + scriptName + " sent to JMeter server");
+        log.info("Script " + scriptName + _(" sent to JMeter server"));
 
-        log.info("Executing Script " + scriptName + ".  Please, be patient");
+        log.info(_("Executing Script ") + scriptName + ".  " + _("Please, be patient"));
 
         var scriptOutput = regRemote.launch('service.scripting.remote', {
             name: 'Run JMeter Script',
@@ -115,7 +115,7 @@ reg.register('service.task.jmeter', {
             }
         });
 
-        log.info("Script " + scriptName + " executed", scriptOutput.output);
+        log.info("Script " + scriptName + _(" executed"), scriptOutput.output);
 
         regRemote.launch('service.fileman.retrieve', {
             name: 'Retrieve JMeter results',
@@ -126,8 +126,8 @@ reg.register('service.task.jmeter', {
             },
         });
 
-        log.info('<a target="_blank" href="/plugin/cla-jmeter-plugin/jmeter_results/' + executionCode + '/index.html">Click here to see the JMeter results</a>' );
-        log.info("Script " + scriptName + " executed", scriptOutput.output);
+        log.info('<a target="_blank" href="/plugin/cla-jmeter-plugin/jmeter_results/' + executionCode + '/index.html">'+ _("Click here to see the JMeter results") +'</a>' );
+        log.info("Script " + scriptName + _(" executed"), scriptOutput.output);
 
         var logOutput = regRemote.launch('service.scripting.remote', {
             name: 'Run JMeter Script',
@@ -146,7 +146,7 @@ reg.register('service.task.jmeter', {
             }
         });
 
-        log.debug("Script " + scriptName + " executed.  Complete log", logOutput.output);
+        log.debug("Script " + scriptName + _(" executed.") + _("  Complete log"), logOutput.output);
 
         return scriptOutput;
     }

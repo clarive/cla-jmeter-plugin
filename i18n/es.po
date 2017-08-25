@@ -1,0 +1,83 @@
+#: init/jmeter-task.js
+msgid "Run JMeter Script"
+msgstr "Ejecutar JMeter Script"
+
+#: init/jmeter-task.js
+msgid "Starting JMeter execution."
+msgstr "Empezando JMeter ejecución."
+
+#: init/jmeter-task.js
+msgid " sent to JMeter server"
+msgstr " enviado al servidor JMeter"
+
+#: init/jmeter-task.js
+msgid "Executing Script "
+msgstr "Ejecutando Script "
+
+#: init/jmeter-task.js
+msgid "Please, be patient"
+msgstr "Por favor, se paciente"
+
+#: init/jmeter-task.js
+msgid " executed"
+msgstr " ejecutado"
+
+#: init/jmeter-task.js
+msgid "Click here to see the JMeter results"
+msgstr "Click aqui para ver los resultados de JMeter"
+
+#: init/jmeter-task.js
+msgid " executed."
+msgstr " ejecutado."
+
+#: init/jmeter-task.js
+msgid "  Complete log"
+msgstr " Log completo"
+
+#: public/form/jmeter-task-form.js
+msgid "Jmeter Script"
+msgstr "Jmeter Script"
+
+#: public/form/jmeter-task-form.js
+msgid "Server"
+msgstr "Servidor"
+
+#: public/form/jmeter-task-form.js
+msgid "JMeter Script Path"
+msgstr "Ruta JMeter Script"
+
+#: public/form/jmeter-task-form.js
+msgid "Remote Server Path"
+msgstr "Ruta del Servidor Remoto"
+
+#: public/form/jmeter-task-form.js
+msgid "Remote User"
+msgstr "Usuario Remoto"
+
+#: public/form/jmeter-task-form.js
+msgid "Command Parameters"
+msgstr "Comandos Personalizados"
+
+#: public/form/jmeter-task-form.js
+msgid "Custom commands or arguments"
+msgstr "Comandos Personalizados o argumentos"
+
+#: public/form/jmeter-task-form.js
+msgid "Errors"
+msgstr "Errores"
+
+#: public/form/jmeter-task-form.js
+msgid "Return Codes"
+msgstr "Código Devuelto"
+
+#: public/form/jmeter-task-form.js
+msgid "Ok"
+msgstr "Ok"
+
+#: public/form/jmeter-task-form.js
+msgid "Warn"
+msgstr "Warn"
+
+#: public/form/jmeter-task-form.js
+msgid "Error"
+msgstr "Error"
