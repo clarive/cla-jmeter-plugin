@@ -1,0 +1,9 @@
+name: Clarive JMeter Plugin
+description: Execute a JMeter script. It will run a JMeter script you specify and return the results CSV as well as a link to the HTML report generated.
+version: 1.0
+icon: https://github.com/clarive/cla-jmeter-plugin/public/icon/jmeter.svg
+url: https://github.com/clarive/cla-jmeter-plugin
+requires:
+  - clarive_version: 6.8 <= version
+dependencies:
+  - cla-jmeter-plugin
