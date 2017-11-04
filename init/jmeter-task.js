@@ -2,9 +2,28 @@ var reg = require('cla/reg');
 
 reg.register('service.task.jmeter', {
     name: _('Run JMeter Script'),
-    icon: 'plugin/cla-jmeter-plugin/icon/logo-jmeter.svg',
+    icon: '/plugin/cla-jmeter-plugin/icon/logo-jmeter.svg',
     form: '/plugin/cla-jmeter-plugin/form/jmeter-task-form.js',
-
+    rulebook: {
+        moniker: 'jmeter_script',
+        description: _('Launch Jmeter scripts'),
+        required: [ 'server'],
+        allow: ['server', 'script_path', 'remote_path', 'remote_user', 'command_parameters', 'errors'],
+        mapper: {
+            'script_path':'scriptPath',
+            'remote_path':'remotePath',
+            'remote_user':'remoteUser',
+            'command_parameters':'commandParameters'
+        },
+        examples: [{
+            jmeter_script: {
+                server: 'jmeter_server',
+                script_path: '/project/myScript.jmx',
+                remote_path: '/tmp/scripts/',
+                command_parameters: ['-v', '-d']
+            }
+        }]
+    },
     handler: function(ctx, params) {
 
         var regRemote = require('cla/reg');
