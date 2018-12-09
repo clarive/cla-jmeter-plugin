@@ -1,6 +1,6 @@
 # JMeter Plugin
 
-<img src="https://cdn.rawgit.com/clarive/cla-jmeter-plugin/master/public/icon/logo-jmeter.svg?sanitize=true" alt="JMeter Plugin" title="JMeter Plugin" width="120" height="120">
+<img src="https://cdn.jsdelivr.net/gh/clarive/cla-jmeter-plugin@master/public/icon/logo-jmeter.svg?sanitize=true" alt="JMeter Plugin" title="JMeter Plugin" width="120" height="120">
 
 Execute a JMeter script. It will run a JMeter script you specify and return the results CSV as well as a link to the HTML report generated.
 
